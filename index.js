@@ -8,8 +8,30 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    socket.send('Yay!');
+    chatID = socket.handshake.query.chatID;
+    socket.join(chatID);
+
     console.log('connected!');
+
+    // Leave chat if disconnected
+    socket.on('disconnect', () => {
+        socket.leave(chatID);
+    });
+
+    // Send message to an user
+    socket.on('sendMessage', message => {
+        receiverChatID = message.chatID;
+        senderChatID = message.senderChatID;
+        content = message.content;
+        
+        // Send message to a room
+        socket.in(receiverChatID).emit('receiveMessage', {
+            'content': content,
+            'senderChatID': senderChatID,
+            'receiverChatID': receiverChatID
+        });
+    });
+    
 });
 
 server.listen(process.env.PORT || 3000);
