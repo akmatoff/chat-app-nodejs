@@ -62,7 +62,7 @@ router.post('/login', (req, res) => {
                         userID: user.user_id,
                         username: user.username
                     }, process.env.JWT_KEY, {
-                        expiresIn: "1h"
+                        expiresIn: "20d"
                     })
                     return res.status(200).json({
                         message: 'Successful authorization',
