@@ -2,16 +2,21 @@
   "name": "chat-app-nodejs",
   "version": "1.0.0",
   "description": "Trying to build a chat app",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "socket.io": "^2.3.0"
+    "sequelize": "^6.3.4",
+    "socket.io": "^2.3.0",
+    "sqlite3": "^5.0.0"
   }
 }
