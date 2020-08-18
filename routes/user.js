@@ -60,7 +60,8 @@ router.post('/login', (req, res) => {
                 if (result) {
                     const token = jwt.sign({
                         userID: user.user_id,
-                        username: user.username
+                        username: user.username,
+                        about: user.about
                     }, process.env.JWT_KEY, {
                         expiresIn: "20d"
                     })
