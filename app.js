@@ -1,8 +1,10 @@
 const express = require('express');
-const app = express();
+const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./config/db');
+
+const app = express();
 
 const userRoutes = require('./routes/user');
 
@@ -24,6 +26,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use(express.static(path.join(__dirname, 'static')));
 
 // User route
 app.use('/user', userRoutes);
