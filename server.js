@@ -12,6 +12,7 @@ io.on('connection', (socket) => {
   socket.emit('connection-message', 'Добро пожаловать в Коп Суйлобо!');
 
   socket.on('disconnect', () => {
+    console.log("Someone disconnected");
     socket.emit('bye');
   });
 });
@@ -19,5 +20,3 @@ io.on('connection', (socket) => {
 dotenv.config();
 
 server.listen(PORT, console.log(`Server running on PORT: ${PORT}`));
-
-module.exports = server;
