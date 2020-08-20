@@ -11,9 +11,23 @@ io.on('connection', (socket) => {
   console.log('Someone connected');
   socket.emit('connection-message', 'Добро пожаловать в Коп Суйлобо!');
 
+  socket.on('send-message', message => {
+    senderID = message.senderID;
+    senderName = message.senderName;
+    receiverID = message.receiverID;
+    text = message.text;
+
+    message = {
+      'sender-id': senderID,
+      'receiver-id': receiverID,
+      'text': text
+    };
+
+    socket.to(receiverID).emit('receive-message', message);
+  });
+
   socket.on('disconnect', () => {
     console.log("Someone disconnected");
-    socket.emit('bye');
   });
 });
 
