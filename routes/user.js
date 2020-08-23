@@ -84,4 +84,32 @@ router.post('/login', (req, res) => {
         });
 });
 
+// Get filtered data
+router.get('/users', (req, res) => {
+  User.findAll({ attributes: ['user_id', 'username', 'about'] }).then(users => {
+    var data;
+
+    const filterUsers = (query) => {
+      var filteredUsers = [];
+      for (user in users) {
+        if (users[user].username.toLowerCase().startsWith(query.username.toLowerCase())) {
+          filteredUsers.push(users[user]);
+        } 
+      }
+      return filteredUsers;
+    }
+    if (req.query.username != null) {
+      data = {
+        users: filterUsers(req.query)
+      }; 
+    } else {
+      data = {
+        users: users
+      };
+    }
+    
+    res.status(200).json(data);
+  });
+});
+
 module.exports = router;
