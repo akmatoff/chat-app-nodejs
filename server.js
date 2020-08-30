@@ -19,11 +19,13 @@ io.on('connection', (socket) => {
 
     message = {
       'sender-id': senderID,
+      'senderName': senderName,
       'receiver-id': receiverID,
       'text': text
     };
 
     socket.to(receiverID).emit('receive-message', message);
+    console.log(text);
   });
 
   socket.on('disconnect', () => {
